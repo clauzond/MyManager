@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pylint settings
+.pylintrc
+
+# Data
+data/account/
+*.idea
