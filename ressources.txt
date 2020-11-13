@@ -1,0 +1,15 @@
+MOT DE PASSE EN CLAIR
+
+https://openclassrooms.com/fr/courses/1757741-securisez-vos-donnees-avec-la-cryptographie/6031865-utilisez-le-chiffrement-symetrique-pour-proteger-vos-informations
+
+
+
+
+MOT DE PASSE PAS EN CLAIR
+https://dan.lousqui.fr/proteger-les-mots-de-passe-en-base-pour-les-nuls-fr.html
+-> plusieurs algorithmes efficaces et sécurisés
+
+Algorithmes crypto de hachage :
+- SHA-256
+Stockage du mot de passe :
+- hachage(mdp + sel) où sel associé au compte, on stocke (id, sel, H(mdp + sel)) et on compare avec H(saisi + sel)
