@@ -18,3 +18,8 @@ Algorithmes crypto de hachage :
 - SHA-256
 Stockage du mot de passe :
 - hachage(mdp + sel) où sel associé au compte, on stocke (id, sel, H(mdp + sel)) et on compare avec H(saisi + sel)
+
+
+https://www.resolver.com/trust/policies/a-10-resolver-corporate-cryptography-policy-and-standards/
+
+ARRÊTER DE L'IMPLEMENTER A LA MAIN
