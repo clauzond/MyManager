@@ -10,14 +10,19 @@ Simply run `main.py`
 
 ## Todo ⏳
 - [ ] Create template files (functions, classes, variables...)
+- [ ] List every security related case
+- [ ] Choose every algorithm needed, for each case
 - [ ] Encrypt/Decrypt password (that can be shown) 🔒
 - [ ] Hash password (that can't be shown) 🗝️
 - [ ] Create a category 📓
 - [ ] Manage existing categories 📝
 - [ ] Save into files 💾
 - [ ] Load from files 🔄
-- [ ] Basic UI
 - [ ] Be able to copy username + password with one click (customizable delay) 🏎
+- [ ] Shortcuts for most used
+- [ ] Quick search
+- [ ] Basic shell UI
+- [ ] Settings ⚙
 
 ## Done ✔
 - [x] Nothing 😢
