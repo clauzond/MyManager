@@ -9,11 +9,10 @@
 Simply run `main.py`
 
 ## Todo ⏳
-- [ ] Create template files (functions, classes, variables...)
 - [ ] List every security related case
-- [ ] Choose every algorithm needed, for each case
-- [ ] Encrypt/Decrypt password (that can be shown) 🔒
-- [ ] Hash password (that can't be shown) 🗝️
+- [x] Choose every algorithm needed, for each case
+- [x] Encrypt/Decrypt password (that can be shown) 🔒
+- [x] Hash password (that can't be shown) 🗝️
 - [ ] Create a category 📓
 - [ ] Manage existing categories 📝
 - [ ] Save into files 💾
