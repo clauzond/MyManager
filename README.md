@@ -3,7 +3,7 @@
 ## Why ❓
 ➡ manage all my accounts (websites, games, ...)  
 ➡ quickly copy/paste account  
-➡ safely encrypt password  
+➡ safely save passwords  
 
 ## How to launch 🚀
 Simply run `main.py`
