@@ -10,21 +10,23 @@ Simply run `main.py`
 
 ## Todo ⏳
 - [ ] List every security related case
-- [x] Choose every algorithm needed, for each case
-- [x] Encrypt/Decrypt password (that can be shown) 🔒
-- [x] Hash password (that can't be shown) 🗝️
-- [ ] Create a category 📓
-- [ ] Manage existing categories 📝
+
 - [ ] Save into files 💾
 - [ ] Load from files 🔄
 - [ ] Be able to copy username + password with one click (customizable delay) 🏎
-- [ ] Shortcuts for most used
-- [ ] Quick search
-- [ ] Basic shell UI
+- [ ] Shortcuts for most used 🛎
+- [ ] Manage existing categories (delete, rename...) 📝
+- [ ] Manage existing accounts (delete, rename...)
+- [ ] Quick search 🔎
+- [ ] Better shell UI 🖼
 - [ ] Settings ⚙
 
 ## Done ✔
-- [x] Nothing 😢
+- [x] Choose every algorithm needed, for each case
+- [x] Encrypt/Decrypt password (that can be shown) 🔒
+- [x] Hash password (that can't be shown) 🗝️
+- [x] Create an account 📕
+- [x] Create a category 📓
 
 ## Ideas 💡
 - Make sure only this computer can access the program (first time launch -> need the password, that will be hashed somewhere to prove the computer is authorized)
