@@ -55,6 +55,9 @@ class Password:
 #     with open(self.file_string, mode="rb") as file_in:
 #         self.hash = file_in.read(-1)
 
+def encrypt_password(password, encryption_key=""):
+    return Password().encrypt(password, encryption_key)
+
 
 def decrypt_password(encryption_key="", cipherstring=""):
     return Password().decrypt(encryption_key, cipherstring)
@@ -68,11 +71,10 @@ def hash_text(plain_text):
     return hashlib.sha256(plain_text.encode()).digest()
 
 
-if __name__ == "__main__":
-    FILE = "data/account/mypass.bin"
+def encrypt_dictionnary(dic, encryption_key=""):
+    for key in dic:
+        dic[key] = encrypt_password(dic[key], encryption_key)
+    return dic
 
-    mypass = Password(FILE)
-    mypass.encrypt("thisésmypâssword!", "&é^$ù")
-    print(mypass.decrypt("&é^$ù"))
-    s = mypass.cipherstring
-    print(decrypt_password("&é^$ù", s))
+if __name__ == "__main__":
+    ...
