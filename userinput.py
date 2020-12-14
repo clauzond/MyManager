@@ -35,7 +35,7 @@ def HELP_CONDITION(userinput):
     return str(userinput) in HELP_ACCEPT_LIST
 
 
-def ASK_QUESTION(question, _remove=False, _help=False, _exit=True):
+def ASK_QUESTION(question, _remove=False, _help=False, _exit=False):
     userinput = str(input(question + "\n> "))
     if _exit and EXIT_CONDITION(userinput):
         raise EXCEPTION_USER_EXIT
@@ -63,6 +63,8 @@ def ASK_CONFIRMATION(question, _fail_function=lambda :None, _repeat=False, _defa
     else:
         return _default_answer
 
+def ASK_CONTINUE(question="PRESS ENTER TO CONTINUE"):
+    input(question)
 
 def PRINT_HELP():
     print(f"HELP: {', '.join(HELP_ACCEPT_LIST)}")
