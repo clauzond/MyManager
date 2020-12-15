@@ -10,15 +10,15 @@ Simply run `main.py`
 
 ## Todo ⏳
 - [ ] List every security related case
-
 - [ ] Save into files 💾
 - [ ] Load from files 🔄
 - [ ] Be able to copy username + password with one click (customizable delay) 🏎
 - [ ] Shortcuts for most used 🛎
 - [ ] Manage existing categories (delete, rename...) 📝
 - [ ] Manage existing accounts (delete, rename...)
-- [ ] Quick search 🔎
 - [ ] Better shell UI 🖼
+- [ ] Add tags
+- [ ] Quick search 🔎
 - [ ] Settings ⚙
 
 ## Done ✔
