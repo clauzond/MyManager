@@ -59,11 +59,11 @@ def encrypt_password(password, encryption_key=""):
     return Password().encrypt(password, encryption_key)
 
 
-def decrypt_password(encryption_key="", cipherstring=""):
+def decrypt_password(cipherstring="", encryption_key=""):
     return Password().decrypt(encryption_key, cipherstring)
 
 
-def verify_hash(self, plain_text, _hash):
+def verify_hash(plain_text, _hash):
     return _hash == hash_text(plain_text)
 
 
@@ -74,6 +74,11 @@ def hash_text(plain_text):
 def encrypt_dictionnary(dic, encryption_key=""):
     for key in dic:
         dic[key] = encrypt_password(dic[key], encryption_key)
+    return dic
+
+def decrypt_dictionnary(dic, encryption_key=""):
+    for key in dic:
+        dic[key] = decrypt_password(dic[key], encryption_key)
     return dic
 
 if __name__ == "__main__":
