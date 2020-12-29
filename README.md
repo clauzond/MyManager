@@ -9,14 +9,8 @@
 Simply run `main.py`
 
 ## Todo ⏳
-- [?] Nice menu, being able to go back...
-- [ ] Be able to copy username + password with one click (customizable delay) 🏎
-- [ ] Shortcuts for most used 🛎
-- [ ] Manage existing categories (delete, rename...) 📝
-- [ ] Manage existing accounts (delete, rename...)
-- [ ] Add tags
+- [ ] Add tags 🏷
 - [ ] Quick search 🔎
-- [ ] Settings ⚙
 - [ ] Better shell UI 🖼
 
 ## Done ✔
@@ -26,6 +20,10 @@ Simply run `main.py`
 - [x] Create/modify an account 📕
 - [x] Create/modify a category 📓
 - [x] Create/modify favorites category ♥
+- [x] Nice menu, being able to go back...
+- [x] Be able to copy username + password with one click (customizable delay) 🏎
+- [x] Shortcuts for most used 🛎
+- [x] Settings ⚙
 
 ## Ideas 💡
 - Make sure only this computer can access the program (first time launch -> need the password, that will be hashed somewhere to prove the computer is authorized)
