@@ -4,5 +4,7 @@ __pycache__/
 *$py.class
 
 # Data
-data/
-*.idea
+data/*
+!data/menu
+data/menu/*
+!data/menu/menu_color.json
