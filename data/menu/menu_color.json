@@ -2,6 +2,6 @@
     "confirmation_color": "green",
     "exception_color": "red",
     "help_color": "cyan",
-    "menu_color": "cyan",
+    "menu_color": "white",
     "question_color": "blue"
 }
