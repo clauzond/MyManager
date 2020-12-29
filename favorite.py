@@ -3,6 +3,7 @@ import manipulate_json as mj
 from terminal import clear
 from manipulate_file import get_all_files_from
 from termcolor import colored
+import os
 
 
 def ask_create_favorite():
@@ -23,9 +24,7 @@ def ask_create_favorite():
     return ask_save_category_path_list(favorite_path, category_path_list, favorite_name)
 
 
-LIST_FILES_COMMAND = [':l', ':ls']
-
-
+LIST_FILES_COMMAND = userinput.GET_FILES_LIST
 def ask_favorite_path(do_clear=True):
     if do_clear:
         clear()
@@ -38,7 +37,7 @@ def ask_favorite_path(do_clear=True):
             return ask_favorite_path(do_clear=False)
         if not (len(favorite_path) > 5 and favorite_path[-5:] == ".json"):
             favorite_path += ".json"
-        full_path = "data/favorite/" + favorite_path
+        full_path = f"data/favorite/{favorite_path}"
         if os.path.isfile(full_path):
             question = "ARE YOU SURE YOU WANT TO MODIFY THIS LIST?"
             try:
@@ -55,11 +54,11 @@ def ask_favorite_path(do_clear=True):
         return
     except userinput.EXCEPTION_USER_HELP:
         print(colored("Enter the path name of your favorite list", userinput.HELP_COLOR))
-        print(colored(f"LIST ALL LISTS: {', '.join(LIST_FILES_COMMAND)}", userinput.HELP_COLOR))
+        print(colored(f"LIST ALL FAVORITES: {', '.join(LIST_FILES_COMMAND)}", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_favorite_path(do_clear=False)
+        return ask_favorite_path(do_clear=True)
 
 
 def ask_favorite_name():
@@ -77,9 +76,7 @@ def ask_favorite_name():
         return ask_favorite_name()
 
 
-LIST_CATEGORIES_COMMAND = LIST_FILES_COMMAND
-
-
+LIST_CATEGORIES_COMMAND = userinput.GET_FILES_LIST
 def ask_category_list(favorite_path):
     """ Modify favorite list, whether favorite_path exists or not
     """
