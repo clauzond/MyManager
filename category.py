@@ -3,6 +3,7 @@ import userinput
 from terminal import clear
 from manipulate_file import get_all_files_from
 from termcolor import colored
+import os
 
 
 def ask_create_category():
@@ -25,9 +26,7 @@ def ask_create_category():
     return ask_save_category(category_path, category_name, account_path_list)
 
 
-LIST_FILES_COMMAND = [':l', ':ls']
-
-
+LIST_FILES_COMMAND = userinput.GET_FILES_LIST
 def ask_category_path(do_clear=True):
     if do_clear:
         clear()
@@ -57,11 +56,11 @@ def ask_category_path(do_clear=True):
         return
     except userinput.EXCEPTION_USER_HELP:
         print(colored("Enter the path name of your category", userinput.HELP_COLOR))
-        print(colored(f"LIST ALL LISTS: {', '.join(LIST_FILES_COMMAND)}", userinput.HELP_COLOR))
+        print(colored(f"LIST ALL CATEGORIES: {', '.join(LIST_FILES_COMMAND)}", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_category_path(do_clear=False)
+        return ask_category_path(do_clear=True)
 
 
 def ask_category_name():
@@ -79,9 +78,7 @@ def ask_category_name():
     return category_name
 
 
-LIST_ACCOUNT_COMMAND = LIST_FILES_COMMAND
-
-
+LIST_ACCOUNT_COMMAND = userinput.GET_FILES_LIST
 def ask_account_path_list(category_path):
     if os.path.isfile(f"data/category/{category_path}"):
         account_path_list = mj.load_file(f"data/category/{category_path}")
