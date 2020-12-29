@@ -1,3 +1,0 @@
-Account :
-    - Posséder nom de compte + mot de passe + e-mail (optionnel) + mdp e-mail (optionnel)
-    - Pour implémentation, sous forme d'une liste de doublons (nom categorie, objet) où objet possède une méthode __str__ enregistrable
