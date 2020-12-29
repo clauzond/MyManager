@@ -1,4 +1,4 @@
-from terminal import clear
+import manipulate_json as mj
 from termcolor import colored
 
 
@@ -15,7 +15,8 @@ class EXCEPTION_USER_REMOVE(Exception):
 class EXCEPTION_USER_HELP(Exception):
     def __init__(self):
         super().__init__("User wants to get some help")
-        
+
+
 class EXCEPTION_MENU_BACK(Exception):
     def __init__(self):
         super().__init__("Menu back")
@@ -26,14 +27,21 @@ WRITING_INPUT = "> "
 EXIT_ACCEPT_LIST = ['q', ':q']
 REMOVE_ACCEPT_LIST = [':r']
 HELP_ACCEPT_LIST = [':h']
-CONFIRMATION_YES_LIST = ['y', 'o', 'yes', 'ye', 'oui']
-CONFIRMATION_NO_LIST = ['n', 'N', 'no', 'non']
+CONFIRMATION_YES_LIST = ['y', ':y', 'o', ':o', 'yes', 'ye', 'oui']
+CONFIRMATION_NO_LIST = ['n', ':n', 'N', 'no', 'non']
+GET_FILES_LIST = [':l', ':ls']
 
-HELP_COLOR = "cyan"
-QUESTION_COLOR = "blue"
-CONFIRMATION_COLOR = "green"
-EXCEPTION_COLOR = "red"
-MENU_COLOR = "magenta"
+MENU_COLOR_JSON_PATH = "data/menu/menu_color.json"
+def LOAD_COLORS():
+    global HELP_COLOR, QUESTION_COLOR, CONFIRMATION_COLOR, EXCEPTION_COLOR, MENU_COLOR
+    mcd = mj.load_file(MENU_COLOR_JSON_PATH)
+    HELP_COLOR = mcd["help_color"]
+    QUESTION_COLOR = mcd["question_color"]
+    CONFIRMATION_COLOR = mcd["confirmation_color"]
+    EXCEPTION_COLOR = mcd["exception_color"]
+    MENU_COLOR = mcd["menu_color"]
+LOAD_COLORS()
+
 
 def EXIT_CONDITION(userinput):
     return str(userinput) in EXIT_ACCEPT_LIST
@@ -101,15 +109,20 @@ def PRINT_NO():
 
 
 def MENU_PRINT(*args):
-    clear()
     for string in args:
         print(colored(string, MENU_COLOR))
 
+
+def MENU_PRINT_WITHOUT_COLOR(*args):
+    for string in args:
+        print(string)
+
+
 def MENU_ASK(*args):
     def get_index(userinput):
-        if len(userinput)==1 and userinput.isnumeric:
+        if len(userinput) == 1 and userinput.isnumeric():
             return int(userinput) - 1
-        elif len(userinput)==2 and userinput[0]==":" and userinput[1].isnumeric:
+        elif len(userinput) == 2 and userinput[0] == ":" and userinput[1].isnumeric():
             return int(userinput[1]) - 1
         else:
             return None
@@ -120,5 +133,24 @@ def MENU_ASK(*args):
             return
         else:
             args[index]()
+    except KeyboardInterrupt:
+        raise EXCEPTION_MENU_BACK
+
+
+def MENU_ASK_WITH_PARAMETERS(*args):
+    def get_index(userinput):
+        if len(userinput) == 1 and userinput.isnumeric():
+            return int(userinput) - 1
+        elif len(userinput) == 2 and userinput[0] == ":" and userinput[1].isnumeric():
+            return int(userinput[1]) - 1
+        else:
+            return None
+    try:
+        userinput = str(input(colored(f"{WRITING_INPUT}", MENU_COLOR)))
+        index = get_index(userinput)
+        if index is None:
+            return
+        else:
+            args[index](index)
     except KeyboardInterrupt:
         raise EXCEPTION_MENU_BACK
