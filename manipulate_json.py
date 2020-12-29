@@ -17,7 +17,7 @@ def save_file(data, filedir):
     """
     create_directory(filedir)
     with open(filedir, 'w+', encoding='utf-8-sig') as fileout:
-        json.dump(data, fileout, ensure_ascii=False)
+        json.dump(data, fileout, ensure_ascii=False, sort_keys=True, indent=4)
         fileout.close()
 
 
