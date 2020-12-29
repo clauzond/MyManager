@@ -68,7 +68,7 @@ def verify_hash(plain_text, _hash):
 
 
 def hash_text(plain_text):
-    return hashlib.sha256(plain_text.encode()).digest()
+    return b64encode(hashlib.sha256(plain_text.encode()).digest()).decode("utf-8")
 
 
 def encrypt_dictionnary(dic, encryption_key=""):
@@ -82,4 +82,4 @@ def decrypt_dictionnary(dic, encryption_key=""):
     return dic
 
 if __name__ == "__main__":
-    ...
+    print(hash_text(""))
