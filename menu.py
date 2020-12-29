@@ -55,10 +55,12 @@ def show_settings():
     def f2(): return change_main_something("favorite")
     s3 = "3. Change colors"
     f3 = change_colors
+    s4 = "4. Change copy delay"
+    f4 = change_copy_delay
     try:
         clear()
-        userinput.MENU_PRINT(s1, s2, s3, s0)
-        userinput.MENU_ASK(f1, f2, f3, f0)
+        userinput.MENU_PRINT(s1, s2, s3, s4, s0)
+        userinput.MENU_ASK(f1, f2, f3, f4, f0)
         show_settings()
     except userinput.EXCEPTION_MENU_BACK:
         return
@@ -112,7 +114,7 @@ def change_single_color(something):
     s_0 = colored(s0, userinput.MENU_COLOR)
 
     s = f"This is the current {something} color."
-    sentence = colored(s, menu_color_dic[f"{something}_color"])
+    sentence = colored(s, userinput.MENU_COLOR)
     try:
         clear()
         print(sentence)
@@ -121,6 +123,38 @@ def change_single_color(something):
         change_single_color(something)
     except userinput.EXCEPTION_MENU_BACK:
         return
+
+
+def change_copy_delay():
+    main_json = mj.load_file(MAIN_JSON_PATH)
+    cur_delay = int(main_json['delay'])
+    s = f"Current delay: {cur_delay}s"
+    sentence = colored(s, userinput.MENU_COLOR)
+    try:
+        clear()
+        print(sentence)
+        question = "ENTER DELAY (in seconds)"
+        delay_input = userinput.ASK_QUESTION(question, _help=True, _exit=True)
+        if delay_input.isnumeric() and int(delay_input)>0 and int(delay_input) != cur_delay:
+            main_json['delay'] = int(delay_input)
+            mj.save_file(main_json, MAIN_JSON_PATH)
+            print(colored(f"Delay changed to {int(delay_input)}s", userinput.MENU_COLOR))
+            userinput.ASK_CONTINUE()
+            return
+        elif delay_input.isnumeric() and int(delay_input) == cur_delay:
+            print(colored("Delay unchanged", userinput.MENU_COLOR))
+            userinput.ASK_CONTINUE()
+            return
+        else:
+            return
+    except (KeyboardInterrupt, userinput.EXCEPTION_USER_EXIT):
+        return
+    except userinput.EXCEPTION_USER_HELP:
+        print(colored("Delay (in second) between each copy of account's main fields", userinput.HELP_COLOR))
+        userinput.PRINT_HELP()
+        userinput.PRINT_EXIT()
+        userinput.ASK_CONTINUE()
+        return change_copy_delay()
 
 
 def show_main_something(something):
@@ -220,8 +254,9 @@ def show_account(account_dic, encryption_key=None, show_values=False):
             s += " [COPY]"
         s += "\n"
 
-    s1 = "1. Copy main fields (2s delay)"
-    def f1(): return account.copy_main_fields(account_dic['list_to_copy'], clear_dictionnary, "2")
+    delay = int(mj.load_file(MAIN_JSON_PATH)['delay'])
+    s1 = f"1. Copy main fields ({delay}s delay)"
+    def f1(): return account.copy_main_fields(account_dic['list_to_copy'], clear_dictionnary, delay)
 
     try:
         clear()
