@@ -4,6 +4,9 @@ import encryption
 from terminal import clear
 from manipulate_file import get_all_files_from
 from termcolor import colored
+import pyperclip
+import time
+import os
 
 
 def ask_create_account():
@@ -33,10 +36,10 @@ def ask_create_account():
     list_to_copy = ask_field_to_copy(account_path, field_dictionnary)
     if not list_to_copy:
         return
-    return ask_save_account(account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy)
+    return ask_save_account(account_path, account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy)
 
 
-LIST_FILES_COMMAND = [':l', ':ls']
+LIST_FILES_COMMAND = userinput.GET_FILES_LIST
 
 
 def ask_account_path(do_clear=True):
@@ -72,9 +75,7 @@ def ask_account_path(do_clear=True):
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_account_path(do_clear=False)
-
-
+        return ask_account_path(do_clear=True)
 
 
 def ask_account_name():
@@ -273,7 +274,30 @@ def ask_remove(field_dictionnary):
     return field_dictionnary
 
 
-def ask_save_account(account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy):
+def bleep_dictionnary(dic):
+    for key in dic:
+        dic[key] = "*"*len(dic[key])
+    return dic
+
+
+def copy_main_fields(list_to_copy, field_dictionnary, delay):
+    delay = int(delay)
+    for key in list_to_copy:
+        pyperclip.copy(field_dictionnary[key])
+        for i in range(delay, 0, -1):
+            for j in range(0, 4):
+                clear()
+                print(field_dictionnary)
+                s = f"COPY LIST: {', '.join(list_to_copy)}" + "\n"
+                s += colored(f"{key} copied", userinput.MENU_COLOR) + "\n"
+                s += str(i) + "."*j + "\n"
+                print(s)
+                time.sleep(0.333)
+    pyperclip.copy("")
+    return
+
+
+def ask_save_account(account_path, account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy):
     clear()
     s = ", ".join([f"{key}: {field_dictionnary[key]}" for key in field_dictionnary])
     s += " | " if s else ""
@@ -283,17 +307,19 @@ def ask_save_account(account_name, field_dictionnary, is_protected, encryption_t
     print(s)
     account_dictionnary = None
     try:
-        file_name = userinput.ASK_QUESTION("FILE NAME FOR ACCOUNT?", _help=True, _exit=True)
-        file_name = file_name.replace('.json', '')
+        wants_to_save = userinput.ASK_CONFIRMATION("DO YOU WANT TO SAVE?", _help=True, _exit=True)
+        if not wants_to_save:
+            return
         account_dictionnary = {'name': account_name, 'field_dictionnary': field_dictionnary,
                                'is_protected': is_protected, 'encryption_tip': encryption_tip, 'list_to_copy': list_to_copy, 'hash': encryption.hash_text(encryption_key)}
-        mj.save_file(account_dictionnary, f"data/account/{file_name}.json")
+        mj.save_file(account_dictionnary, f"data/account/{account_path}")
     except userinput.EXCEPTION_USER_HELP:
-        print(colored("Account will be saved under data/account/[name]. You can enter name with / to save it under a folder.", userinput.HELP_COLOR))
+        print(
+            colored("Category will be saved under data/category/[name]. You can enter name with / to save it under a folder.", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_save_account(account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy)
+        return ask_save_account(account_path, account_name, field_dictionnary, is_protected, encryption_tip, encryption_key, list_to_copy)
     except KeyboardInterrupt:
         return
     return account_dictionnary
