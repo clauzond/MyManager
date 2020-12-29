@@ -9,7 +9,7 @@
 Simply run `main.py`
 
 ## Todo ⏳
-- [ ] Nice menu, being able to go back...
+- [?] Nice menu, being able to go back...
 - [ ] Be able to copy username + password with one click (customizable delay) 🏎
 - [ ] Shortcuts for most used 🛎
 - [ ] Manage existing categories (delete, rename...) 📝
