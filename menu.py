@@ -114,7 +114,7 @@ def change_single_color(something):
     s_0 = colored(s0, userinput.MENU_COLOR)
 
     s = f"This is the current {something} color."
-    sentence = colored(s, userinput.MENU_COLOR)
+    sentence = colored(s, menu_color_dic[f"{something}_color"])
     try:
         clear()
         print(sentence)
