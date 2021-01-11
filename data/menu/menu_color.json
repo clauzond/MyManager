@@ -3,5 +3,5 @@
     "exception_color": "red",
     "help_color": "cyan",
     "menu_color": "white",
-    "question_color": "blue"
+    "question_color": "magenta"
 }
