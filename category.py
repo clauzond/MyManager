@@ -81,7 +81,7 @@ def ask_category_name():
 LIST_ACCOUNT_COMMAND = userinput.GET_FILES_LIST
 def ask_account_path_list(category_path):
     if os.path.isfile(f"data/category/{category_path}"):
-        account_path_list = mj.load_file(f"data/category/{category_path}")
+        account_path_list = mj.load_file(f"data/category/{category_path}")['account_path_list']
     else:
         account_path_list = []
     do_clear = True
