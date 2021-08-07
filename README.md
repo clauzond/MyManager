@@ -9,6 +9,7 @@
 Simply run `main.py`
 
 ## Todo ⏳
+- [ ] Hash function should be slower in order to prevent brute force 💪
 - [ ] Add tags 🏷
 - [ ] Quick search 🔎
 - [ ] Better shell UI 🖼
