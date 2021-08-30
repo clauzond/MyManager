@@ -120,10 +120,14 @@ def MENU_PRINT_WITHOUT_COLOR(*args):
 
 def MENU_ASK(*args):
     def get_index(userinput):
-        if len(userinput) == 1 and userinput.isnumeric():
+        if userinput.isnumeric():
+            if int(userinput) == len(args) - 1:
+                return None
             return int(userinput) - 1
-        elif len(userinput) == 2 and userinput[0] == ":" and userinput[1].isnumeric():
-            return int(userinput[1]) - 1
+        elif len(userinput) > 1 and userinput[0] == ":" and userinput[1:].isnumeric():
+            if int(userinput[1:]) == len(args) - 1:
+                return None
+            return int(userinput[1:]) - 1
         else:
             return None
     try:
@@ -131,18 +135,18 @@ def MENU_ASK(*args):
         index = get_index(userinput)
         if index is None:
             return
-        else:
-            args[index]()
+        if index < (len(args) - 1):
+                args[index]()
     except KeyboardInterrupt:
         raise EXCEPTION_MENU_BACK
 
 
 def MENU_ASK_WITH_PARAMETERS(*args):
     def get_index(userinput):
-        if len(userinput) == 1 and userinput.isnumeric():
+        if userinput.isnumeric():
             return int(userinput) - 1
-        elif len(userinput) == 2 and userinput[0] == ":" and userinput[1].isnumeric():
-            return int(userinput[1]) - 1
+        elif len(userinput) > 1 and userinput[0] == ":" and userinput[1:].isnumeric():
+            return int(userinput[1:]) - 1
         else:
             return None
     try:
@@ -151,6 +155,12 @@ def MENU_ASK_WITH_PARAMETERS(*args):
         if index is None:
             return
         else:
-            args[index](index)
+            # last button is back button
+            if index < (len(args) - 1):
+                args[index](index)
+            elif index == (len(args) - 1):
+                raise EXCEPTION_MENU_BACK
+            else:
+                return
     except KeyboardInterrupt:
         raise EXCEPTION_MENU_BACK
