@@ -121,11 +121,11 @@ def MENU_PRINT_WITHOUT_COLOR(*args):
 def MENU_ASK(*args):
     def get_index(userinput):
         if userinput.isnumeric():
-            if int(userinput) == len(args) - 1:
+            if int(userinput) == len(args):
                 return None
             return int(userinput) - 1
         elif len(userinput) > 1 and userinput[0] == ":" and userinput[1:].isnumeric():
-            if int(userinput[1:]) == len(args) - 1:
+            if int(userinput[1:]) == len(args):
                 return None
             return int(userinput[1:]) - 1
         else:
