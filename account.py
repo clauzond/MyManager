@@ -22,7 +22,7 @@ def ask_create_account():
     account_path = ask_account_path()
     if not account_path:
         return
-    account_name = ask_account_name()
+    account_name = ask_account_name(account_path)
     if not account_name:
         return
     is_protected, encryption_key = ask_protect(account_path)
@@ -56,7 +56,7 @@ def ask_account_path(do_clear=True):
             account_path += ".json"
         full_path = "data/account/" + account_path
         if os.path.isfile(full_path):
-            question = "ARE YOU SURE YOU WANT TO MODIFY THIS CATEGORY?"
+            question = "ARE YOU SURE YOU WANT TO MODIFY THIS ACCOUNT?"
             try:
                 wants_modify = userinput.ASK_CONFIRMATION(question)
             except KeyboardInterrupt:
@@ -78,19 +78,33 @@ def ask_account_path(do_clear=True):
         return ask_account_path(do_clear=True)
 
 
-def ask_account_name():
+def ask_account_name(account_path):
     clear()
+    account_name = ""
+    if os.path.isfile(f"data/account/{account_path}"):
+        dic = mj.load_file(f"data/account/{account_path}")
+        account_name = dic['name']
+        if account_name:
+            question = f"DO YOU WANT TO KEEP THE ACCOUNT'S NAME ({account_name})?"
+            try:
+                wants_keep = userinput.ASK_CONFIRMATION(question)
+            except KeyboardInterrupt:
+                return ask_account_name(account_path)
+            if wants_keep:
+                return account_name
+            else:
+                pass
     try:
-        category_name = userinput.ASK_QUESTION("ENTER ACCOUNT NAME", _exit=True)
+        account_name = userinput.ASK_QUESTION("ENTER ACCOUNT NAME", _exit=True)
     except userinput.EXCEPTION_USER_HELP:
         print(colored("Enter a name for your account", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_account_name()
+        return ask_account_name(account_path)
     except (userinput.EXCEPTION_USER_EXIT, KeyboardInterrupt):
-        category_name = ""
-    return category_name
+        pass
+    return account_name
 
 
 def ask_protect(account_path):
@@ -173,7 +187,10 @@ def ask_encryption_tip(account_path):
 def ask_field_loop(account_path, is_protected, encryption_key=""):
     if os.path.isfile(f"data/account/{account_path}"):
         dic = mj.load_file(f"data/account/{account_path}")
-        field_dictionnary = encryption.decrypt_dictionnary(dic['field_dictionnary'], encryption_key)
+        if is_protected:
+            field_dictionnary = encryption.decrypt_dictionnary(dic['field_dictionnary'], encryption_key)
+        else:
+            field_dictionnary = dic['field_dictionnary']
     else:
         field_dictionnary = {}
     while True:

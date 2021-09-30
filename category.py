@@ -17,16 +17,18 @@ def ask_create_category():
     category_path = ask_category_path()
     if not category_path:
         return
-    category_name = ask_category_name()
+    category_name = ask_category_name(category_path)
     if not category_name:
         return
-    account_path_list = ask_account_path_list(category_path=category_path)
+    account_path_list = ask_account_path_list(category_path)
     if not account_path_list:
         return
     return ask_save_category(category_path, category_name, account_path_list)
 
 
 LIST_FILES_COMMAND = userinput.GET_FILES_LIST
+
+
 def ask_category_path(do_clear=True):
     if do_clear:
         clear()
@@ -63,22 +65,38 @@ def ask_category_path(do_clear=True):
         return ask_category_path(do_clear=True)
 
 
-def ask_category_name():
+def ask_category_name(category_path):
+    clear()
+    category_name = ""
+    if os.path.isfile(f"data/category/{category_path}"):
+        dic = mj.load_file(f"data/category/{category_path}")
+        category_name = dic['name']
+        if category_name:
+            question = f"DO YOU WANT TO KEEP THE CATEGORY'S NAME ({category_name})?"
+            try:
+                wants_keep = userinput.ASK_CONFIRMATION(question)
+            except KeyboardInterrupt:
+                return ask_category_name(category_path)
+            if wants_keep:
+                return category_name
+            else:
+                pass
     try:
-        clear()
         category_name = userinput.ASK_QUESTION("ENTER CATEGORY NAME", _exit=True, _help=True)
     except userinput.EXCEPTION_USER_HELP:
         print(colored("Enter a name for your category", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_category_name()
-    except KeyboardInterrupt:
-        category_name = ""
+        return ask_category_name(category_path)
+    except (KeyboardInterrupt, userinput.EXCEPTION_USER_EXIT):
+        pass
     return category_name
 
 
 LIST_ACCOUNT_COMMAND = userinput.GET_FILES_LIST
+
+
 def ask_account_path_list(category_path):
     if os.path.isfile(f"data/category/{category_path}"):
         account_path_list = mj.load_file(f"data/category/{category_path}")['account_path_list']

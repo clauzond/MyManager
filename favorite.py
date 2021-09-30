@@ -15,7 +15,7 @@ def ask_create_favorite():
     favorite_path = ask_favorite_path()
     if not favorite_path:
         return
-    favorite_name = ask_favorite_name()
+    favorite_name = ask_favorite_name(favorite_path)
     if not favorite_name:
         return
     category_path_list = ask_category_list(favorite_path)
@@ -61,19 +61,33 @@ def ask_favorite_path(do_clear=True):
         return ask_favorite_path(do_clear=True)
 
 
-def ask_favorite_name():
+def ask_favorite_name(favorite_path):
+    clear()
+    favorite_name = ""
+    if os.path.isfile(f"data/category/{favorite_path}"):
+        dic = mj.load_file(f"data/category/{favorite_path}")
+        favorite_name = dic['name']
+        if favorite_name:
+            question = f"DO YOU WANT TO KEEP THE FAVORITE'S NAME ({favorite_name})?"
+            try:
+                wants_keep = userinput.ASK_CONFIRMATION(question)
+            except KeyboardInterrupt:
+                return ask_favorite_name(favorite_path)
+            if wants_keep:
+                return favorite_name
+            else:
+                pass
     try:
-        clear()
-        name = userinput.ASK_QUESTION("NAME YOUR FAVORITE LIST (for yourself)", _help=True, _exit=True)
-        return name
-    except (KeyboardInterrupt, userinput.EXCEPTION_USER_EXIT):
-        pass
+        favorite_name = userinput.ASK_QUESTION("NAME YOUR FAVORITE LIST (for yourself)", _help=True, _exit=True)
     except userinput.EXCEPTION_USER_HELP:
         print(colored("Enter the name of your favorite list, used when shown to you.", userinput.HELP_COLOR))
         userinput.PRINT_HELP()
         userinput.PRINT_EXIT()
         userinput.ASK_CONTINUE()
-        return ask_favorite_name()
+        return ask_favorite_name(favorite_path)
+    except (KeyboardInterrupt, userinput.EXCEPTION_USER_EXIT):
+        pass
+    return favorite_name
 
 
 LIST_CATEGORIES_COMMAND = userinput.GET_FILES_LIST
