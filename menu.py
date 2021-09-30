@@ -256,7 +256,7 @@ def show_account(account_dic, encryption_key=None, show_values=False):
 
     delay = int(mj.load_file(MAIN_JSON_PATH)['delay'])
     s1 = f"1. Copy main fields ({delay}s delay)"
-    def f1(): return account.copy_main_fields(account_dic['list_to_copy'], clear_dictionnary, delay)
+    def f1(): return account.copy_main_fields(account_dic['list_to_copy'], clear_dictionnary, field_dictionnary, delay)
 
     try:
         clear()

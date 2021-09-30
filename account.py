@@ -297,10 +297,10 @@ def bleep_dictionnary(dic):
     return dic
 
 
-def copy_main_fields(list_to_copy, field_dictionnary, delay):
+def copy_main_fields(list_to_copy, clear_dictionnary, field_dictionnary, delay):
     delay = int(delay)
     for key in list_to_copy:
-        pyperclip.copy(field_dictionnary[key])
+        pyperclip.copy(clear_dictionnary[key])
         for i in range(delay, 0, -1):
             for j in range(0, 4):
                 clear()
