@@ -5,8 +5,11 @@
 ➡ quickly copy/paste account  
 ➡ safely save passwords  
 
-## How to launch 🚀
-Simply run `main.py`
+## How to use it ? 🚀
+You can launch the manager by executing `main.py`.
+You can create accounts with custom fields (equivalent to a python dictionnary), choose whether to encrypt them or not with a password. You can select some fields you want to copy when selecting an account (with a delay between the fields you want to copy),  modify them later on (adding, modifying or removing fields), and a help description can be displayed anytime by typing `:h` in the command line.
+You can create categories which are basically a list of accounts, and favorites which are a list of categories.
+
 
 ## Todo ⏳
 - [ ] Hash function should be slower in order to prevent brute force 💪
@@ -25,9 +28,3 @@ Simply run `main.py`
 - [x] Be able to copy username + password with one click (customizable delay) 🏎
 - [x] Shortcuts for most used 🛎
 - [x] Settings ⚙
-
-## Ideas 💡
-- Make sure only this computer can access the program (first time launch -> need the password, that will be hashed somewhere to prove the computer is authorized)
-- Some passwords are less important, so no password asked to show them
-- Some passwords are important, so a password asked everytime to show them (this password can be global or chosen when created)
-- The encryption algorithm for "showable passwords" need to be non-crackable without the password chosen (encryption/decryption with the password as key which is never saved)
