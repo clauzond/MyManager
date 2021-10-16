@@ -299,7 +299,9 @@ def bleep_dictionnary(dic):
 
 def copy_main_fields(list_to_copy, clear_dictionnary, field_dictionnary, delay):
     delay = int(delay)
+    num = 0
     for key in list_to_copy:
+        num += 1
         pyperclip.copy(clear_dictionnary[key])
         for i in range(delay, 0, -1):
             for j in range(0, 4):
@@ -307,7 +309,7 @@ def copy_main_fields(list_to_copy, clear_dictionnary, field_dictionnary, delay):
                 print(field_dictionnary)
                 s = f"COPY LIST: {', '.join(list_to_copy)}" + "\n"
                 s += colored(f"{key} copied", userinput.MENU_COLOR) + "\n"
-                s += str(i) + "."*j + "\n"
+                s += f"[{num}] {i}{'.'*j}\n"
                 print(s)
                 time.sleep(0.333)
     pyperclip.copy("")
