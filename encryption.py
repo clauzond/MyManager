@@ -49,12 +49,6 @@ class Password:
         return plain_text[:-ord(last_character)]
 
 
-# def load(self, file_string=None):
-#     if file_string is not None:
-#         self.file_string = file_string
-#     with open(self.file_string, mode="rb") as file_in:
-#         self.hash = file_in.read(-1)
-
 def encrypt_password(password, encryption_key=""):
     return Password().encrypt(password, encryption_key)
 
@@ -76,10 +70,12 @@ def encrypt_dictionnary(dic, encryption_key=""):
         dic[key] = encrypt_password(dic[key], encryption_key)
     return dic
 
+
 def decrypt_dictionnary(dic, encryption_key=""):
     for key in dic:
         dic[key] = decrypt_password(dic[key], encryption_key)
     return dic
+
 
 if __name__ == "__main__":
     print(hash_text(""))
