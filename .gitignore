@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Pylint
-*.pylintrc
-
 # Data
 data/*
 !data/menu
