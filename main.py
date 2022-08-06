@@ -6,6 +6,7 @@ def import_necessary():
     __import__("hashlib")
     __import__("pyperclip")
     __import__("termcolor")
+    __import__("pyautogui")
 
 
 if __name__ == "__main__":

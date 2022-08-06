@@ -5,6 +5,7 @@ from terminal import clear
 from manipulate_file import get_all_files_from
 from termcolor import colored
 import pyperclip
+import pyautogui
 import time
 import os
 
@@ -313,6 +314,28 @@ def copy_main_fields(list_to_copy, clear_dictionnary, field_dictionnary, delay):
                 print(s)
                 time.sleep(0.333)
     pyperclip.copy("")
+    return
+
+
+def paste_main_fields(list_to_copy, clear_dictionnary, field_dictionnary, delay):
+    delay = int(delay)
+    time.sleep(delay)
+    num = 0
+    for key in list_to_copy:
+        for i in range(delay, 0, -1):
+            for j in range(0, 4):
+                clear()
+                print(field_dictionnary)
+                s = f"COPY LIST: {', '.join(list_to_copy)}" + "\n"
+                s += colored(f"{key} copied", userinput.MENU_COLOR) + "\n"
+                s += f"[{num}] {i}{'.'*j}\n"
+                print(s)
+        num += 1
+        pyautogui.write(clear_dictionnary[key])
+        if num < len(list_to_copy):
+            pyautogui.press('tab')
+
+    pyautogui.press('enter')
     return
 
 
