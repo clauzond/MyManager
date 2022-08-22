@@ -7,7 +7,9 @@
 
 ## How to use it ? 🚀
 You can launch the manager by executing `main.py`.
+
 You can create accounts with custom fields (equivalent to a python dictionnary), choose whether to encrypt them or not with a password. You can select some fields you want to copy when selecting an account (with a delay between the fields you want to copy),  modify them later on (adding, modifying or removing fields), and a help description can be displayed anytime by typing `:h` in the command line.
+
 You can create categories which are basically a list of accounts, and favorites which are a list of categories.
 
 
